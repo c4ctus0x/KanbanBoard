@@ -1,1 +1,1 @@
-# KanbanBoard
+KanbanBoard is a task management application designed to help users organize and track their work efficiently. The application features a controller capable of creating tasks with specific attributes such as title, description, and column status (e.g., "To Do", "In Progress", "Done"). Users can retrieve a list of tasks, with the option to filter by status, update task details, or delete tasks by their ID. The application emphasizes proficient error handling and validation across all functionalities to ensure a smooth and user-friendly experience.
