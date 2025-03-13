@@ -1,35 +1,37 @@
 const express = require('express');
-const router = express.Router();
-const taskController = require('./taskController');
+const app = express();
+const { Router } = express;
+const router = Router();
+const { createTask, getTasks, updateTask, deleteTask } = require('./taskController');
 
 require('dotenv').config();
 
-router.post('/tasks', (req, res) => {
-  taskController.createTask(req, res);
-});
+router.post('/tasks', createTask);
 
 router.get('/tasks', (req, res) => {
   const { status } = req.query;
-  taskController.getTasks(req, res, status);
+  getTasks(req, res, status);
 });
 
 router.put('/tasks/:id', (req, res) => {
   const { id } = req.params;
-  taskController.updateTask(req, res, id);
+  updateTask(req, res, id);
 });
 
 router.delete('/tasks/:id', (req, res) => {
   const { id } = req.params;
-  taskController.deleteTask(req, res, id);
+  deleteTask(req, res, id);
 });
 
-module.exports = router;
-
-const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/api', router);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
